@@ -59,7 +59,8 @@ export default async function register(req: Request, response: Response) {
           password: password,
           registerDate: getDate(),
           username: username,
-          lastModified: getDate()
+          lastModified: getDate(),
+          refreshDate: getDate()
         })
         .then(() => {
           response.status(201).send({

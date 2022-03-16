@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import admin from "firebase-admin";
 import getAge from "../utils/getAge";
+import getDate from "../utils/getDate";
 
 export default async function modifyUser(
   req: Request,
@@ -19,6 +20,7 @@ export default async function modifyUser(
         .doc(userRecord.uid)
         .update({
           ...req.body,
+          lastModified: getDate(),
           age: getAge(req.body.birthDate)
         })
         .then(() => {

@@ -26,7 +26,7 @@ export default async function login(req: Request, response: Response) {
           .get()
           .then((doc) => {
             if (doc.exists) {
-              return 
+              isAdmin = true;
             }
           });
         const token = jwt.sign(
@@ -42,9 +42,9 @@ export default async function login(req: Request, response: Response) {
         response.status(200).send({ token: token });
       })
       .catch((error) => {
-        response.send("Erreur lors de l authentication!");
+        response.send("Email ou mot de passe incorrect!");
       });
   } catch (error) {
-    response.send("Erreur!");
+    response.send("Erreur lors de l'authentication!");
   }
 }
