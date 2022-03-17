@@ -1,4 +1,5 @@
 import express, { NextFunction, Request, Response } from "express";
+import addContact from "../controller/addContact";
 import deleteUser from "../controller/deleteUser";
 import getUser from "../controller/getUser";
 import modifyUser from "../controller/userModify";
@@ -22,6 +23,14 @@ router.get(
 router.post("/register", (req: Request, res: Response, next: NextFunction) => {
   userRegister(req, res);
 });
+
+router.post(
+  "/addContact",
+  authMiddleware,
+  (req: Request, res: Response, next: NextFunction) => {
+    addContact(req, res);
+  }
+);
 
 // PUT ROUTES
 
