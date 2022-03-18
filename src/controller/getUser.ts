@@ -16,5 +16,5 @@ export default async function getUser(req: Request, res: Response) {
       uid: user.id,
       ...user.data(),
     });
-  else res.status(400).send({ msg: "user not found" });
+  else res.status(400).send({ msg: "Utilisateur introuvable!" });
 }

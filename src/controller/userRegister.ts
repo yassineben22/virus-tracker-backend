@@ -42,7 +42,7 @@ export default async function register(req: Request, response: Response) {
     .auth()
     .createUser({
       email: req.body.email,
-      password: req.body.password
+      password: req.body.password,
     })
     .then(async (userRecord) => {
       await admin
@@ -60,10 +60,10 @@ export default async function register(req: Request, response: Response) {
           registerDate: getDate(),
           username: username,
           lastModified: getDate(),
-          refreshDate: getDate()
+          refreshDate: getDate(),
         })
         .then(() => {
-          response.status(201).send({
+          response.status(200).send({
             msg: "Utilisateur crée avec succes",
           });
         })

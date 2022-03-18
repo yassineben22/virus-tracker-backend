@@ -21,18 +21,20 @@ export default async function modifyUser(
         .update({
           ...req.body,
           lastModified: getDate(),
-          age: getAge(req.body.birthDate)
+          age: getAge(req.body.birthDate),
         })
         .then(() => {
-          response.status(201).send("Utilisateur modifié avec succes");
+          response.status(200).send({ msg: "Utilisateur modifié avec succes" });
         })
         .catch((err) => {
           response
             .status(400)
-            .send("Erreur est survenue lors de la modification");
+            .send({ msg: "Erreur est survenue lors de la modification" });
         });
     })
     .catch((err) => {
-      response.status(400).send("Erreur est survenue lors de la modification");
+      response
+        .status(400)
+        .send({ msg: "Erreur est survenue lors de la modification" });
     });
 }

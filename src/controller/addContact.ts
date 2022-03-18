@@ -15,7 +15,7 @@ export default async function addContact(req: Request, res: Response) {
         contactTime: req.body.contactTime,
       })
       .then(() => {
-        return res.status(201).send("Contact ajouté avec succes!");
+        return res.status(200).send("Contact ajouté avec succes!");
       })
       .catch((err) => {
         return res

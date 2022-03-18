@@ -23,6 +23,6 @@ export default async function getUsers(req: Request, res: Response) {
         res.status(400).send(err);
       });
   } catch (err) {
-    return res.status(400).send("Erreur inconnue!");
+    return res.status(400).send({ msg: "Erreur inconnue!" });
   }
 }

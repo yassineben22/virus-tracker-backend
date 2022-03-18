@@ -11,7 +11,7 @@ export default async function addVirus(req: Request, response: Response) {
           name: req.body.name,
         })
         .then(() => {
-          response.status(201).send({
+          response.status(200).send({
             msg: "Virus crée avec succes",
           });
         })

@@ -4,11 +4,7 @@ import admin from "firebase-admin";
 
 export default async function userModifyPassword(req: Request, res: Response) {
   let { uid, email, previousPassword, newPassword } = req.body;
-  if (
-    !email ||
-    !previousPassword ||
-    !newPassword
-  )
+  if (!email || !previousPassword || !newPassword)
     return res.status(400).send({ msg: "Données incomplètes!" });
   axios
     .post(
@@ -34,14 +30,14 @@ export default async function userModifyPassword(req: Request, res: Response) {
                 .send({ msg: "Mot de passe modifié avec succès!" });
             })
             .catch((err) => {
-              res.status(400).send("Une erreur est survenue!");
+              res.status(400).send({ msg: "Une erreur est survenue!" });
             });
         })
         .catch((err) => {
-          res.status(400).send("Une erreur est survenue!");
+          res.status(400).send({ msg: "Une erreur est survenue!" });
         });
     })
     .catch((error) => {
-      res.status(400).send("Mot de passe incorrect!");
+      res.status(400).send({ msg: "Mot de passe incorrect!" });
     });
 }

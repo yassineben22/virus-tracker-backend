@@ -19,15 +19,15 @@ export default async function modifyContactNotifications(
       })
       .then(() => {
         response
-          .status(201)
-          .send("Notifications de contact modifiées avec succes");
+          .status(200)
+          .send({ msg: "Notifications de contact modifiées avec succes" });
       })
       .catch((err) => {
         response
           .status(400)
-          .send("Erreur est survenue lors de la modification!");
+          .send({ msg: "Erreur est survenue lors de la modification!" });
       });
   } catch (err) {
-    response.status(400).send("Erreur!");
+    response.status(400).send({ msg: "Erreur!" });
   }
 }

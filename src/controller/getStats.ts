@@ -19,9 +19,9 @@ export default async function getStats(req: Request, res: Response) {
         });
       })
       .catch((err) => {
-        res.status(400).send(err);
+        res.status(400).send({ msg: "Erreur inconnue!" });
       });
   } catch (err) {
-    return res.status(400).send("Erreur inconnue!");
+    return res.status(400).send({msg: "Erreur inconnue!"});
   }
 }

@@ -19,15 +19,17 @@ export default async function modifyAppNotifications(
       })
       .then(() => {
         response
-          .status(201)
-          .send("Notifications de l'application modifiées avec succes");
+          .status(200)
+          .send({
+            msg: "Notifications de l'application modifiées avec succes",
+          });
       })
       .catch((err) => {
         response
           .status(400)
-          .send("Erreur est survenue lors de la modification!");
+          .send({ msg: "Erreur est survenue lors de la modification!" });
       });
   } catch (err) {
-    response.status(400).send("Erreur!");
+    response.status(400).send({ msg: "Erreur!" });
   }
 }

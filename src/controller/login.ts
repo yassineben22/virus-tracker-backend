@@ -42,9 +42,9 @@ export default async function login(req: Request, response: Response) {
         response.status(200).send({ token: token });
       })
       .catch((error) => {
-        response.status(400).send("Email ou mot de passe incorrect!");
+        response.status(400).send({msg:"Email ou mot de passe incorrect!"});
       });
   } catch (error) {
-    response.status(400).send("Erreur lors de l'authentication!");
+    response.status(400).send({msg: "Erreur lors de l'authentication!"});
   }
 }
