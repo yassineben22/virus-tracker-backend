@@ -38,7 +38,7 @@ export default async function addContamination(req: Request, res: Response) {
                 const message = {
                   notification: {
                     title: 'Contact détecté!',
-                    body: 'rak tla9iti m3a chi wa7d mrid (fkerro).'
+                    body: 'rak tla9iti m3a chi wa7d mrid fkerro (ycr).'
                   },
                   tokens: fcmTokens,
                 };

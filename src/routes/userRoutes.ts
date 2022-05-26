@@ -67,14 +67,6 @@ router.post(
   }
 );
 
-router.post(
-  "/updateToken",
-  authMiddleware,
-  (req: Request, res: Response, next: NextFunction) => {
-    refreshToken(req, res);
-  }
-);
-
 // PUT ROUTES
 
 router.put(
@@ -82,6 +74,14 @@ router.put(
   authMiddleware,
   (req: Request, res: Response, next: NextFunction) => {
     modifyUser(req, res, next);
+  }
+);
+
+router.put(
+  "/updateToken",
+  authMiddleware,
+  (req: Request, res: Response, next: NextFunction) => {
+    refreshToken(req, res);
   }
 );
 

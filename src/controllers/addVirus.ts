@@ -7,7 +7,7 @@ export default async function addVirus(req: Request, response: Response) {
         return response.status(400).send({ msg: "Données incomplètes!" });
       await admin
         .firestore()
-        .collection("virus")
+        .collection("viruses")
         .add({
           name: req.body.name,
           added: getDate()

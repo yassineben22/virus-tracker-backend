@@ -24,20 +24,6 @@ app.post("/api/login", (req: Request, res: Response, next: NextFunction) => {
   login(req, res);
 });
 
-app.post(
-  "/api/resetPassword",
-  (req: Request, res: Response, next: NextFunction) => {
-    resetPassword(req, res);
-  }
-);
-
-app.post(
-  '/api/checkEmail',
-  (req: Request, res: Response, next: NextFunction) => {
-    checkEmail(req, res);
-  }
-)
-
 app.use("/api/user", userRoutes.routes);
 
 app.use("/api/admin", adminRoutes.routes);
