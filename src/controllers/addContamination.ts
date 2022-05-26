@@ -52,7 +52,8 @@ export default async function addContamination(req: Request, res: Response) {
                     });
                   }
                 });
-                await admin
+              }
+              await admin
                 .firestore()
                 .collection("contaminations")
                 .add({
@@ -63,7 +64,7 @@ export default async function addContamination(req: Request, res: Response) {
                 .then(() => {
                   return res
                     .status(200)
-                    .send("Contamination ajoutée avec succes!");
+                    .send({msg: "Contamination ajoutée avec succes!"});
                 })
                 .catch((err) => {
                   return res
@@ -72,7 +73,6 @@ export default async function addContamination(req: Request, res: Response) {
                       msg: "Erreur lors de l'ajout de la contamination!",
                     });
                 });
-              }
             })
             .catch(() => {
               return res
@@ -82,7 +82,7 @@ export default async function addContamination(req: Request, res: Response) {
         } else {
           return res.status(400).send({ msg: "Virus introuvable!" });
         }
-      });
+      }).catch(()=>{res.status(400).send({msg: "Une erreur est survenue!"})})
   } catch (error) {
     return res.status(400).send({ msg: "Une erreur est survenue!" });
   }
