@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import admin from "firebase-admin";
+import getDate from "../utils/getDate";
 
 export default async function addVirus(req: Request, response: Response) {
     if (!req.body.name)
@@ -9,6 +10,7 @@ export default async function addVirus(req: Request, response: Response) {
         .collection("virus")
         .add({
           name: req.body.name,
+          added: getDate()
         })
         .then(() => {
           response.status(200).send({

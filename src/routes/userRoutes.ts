@@ -1,11 +1,16 @@
 import express, { NextFunction, Request, Response } from "express";
-import addContact from "../controller/addContact";
-import deleteUser from "../controller/deleteUser";
-import getUser from "../controller/getUser";
-import modifyUser from "../controller/userModify";
-import userModifyPassword from "../controller/userModifyPassword";
-import userRegister from "../controller/userRegister";
-import authMiddleware from "../middleware/authMiddleware";
+import addContact from "../controllers/addContact";
+import addContamination from "../controllers/addContamination";
+import checkEmail from "../controllers/checkEmail";
+import deleteUser from "../controllers/deleteUser";
+import getUser from "../controllers/getUser";
+import getViruses from "../controllers/getViruses";
+import refreshToken from "../controllers/refreshToken";
+import resetPassword from "../controllers/resetPassword";
+import modifyUser from "../controllers/userModify";
+import userModifyPassword from "../controllers/userModifyPassword";
+import userRegister from "../controllers/userRegister";
+import authMiddleware from "../middlewares/authMiddleware";
 
 const router = express.Router();
 // GET ROUTES
@@ -18,6 +23,14 @@ router.get(
   }
 );
 
+router.get(
+  "/getViruses",
+  authMiddleware,
+  (req: Request, res: Response, next: NextFunction) => {
+    getViruses(req, res);
+  }
+);
+
 // POST ROUTES
 
 router.post("/register", (req: Request, res: Response, next: NextFunction) => {
@@ -25,10 +38,40 @@ router.post("/register", (req: Request, res: Response, next: NextFunction) => {
 });
 
 router.post(
+  '/resetPassword',
+  (req: Request, res: Response, next: NextFunction) => {
+    resetPassword(req, res);
+  }
+)
+
+router.post(
+  "/addContamination",
+  authMiddleware,
+  (req: Request, res: Response, next: NextFunction) => {
+    addContamination(req, res);
+  }
+);
+
+router.post(
+  '/checkEmail',
+  (req: Request, res: Response, next: NextFunction) => {
+    checkEmail(req, res);
+  }
+)
+
+router.post(
   "/addContact",
   authMiddleware,
   (req: Request, res: Response, next: NextFunction) => {
     addContact(req, res);
+  }
+);
+
+router.post(
+  "/updateToken",
+  authMiddleware,
+  (req: Request, res: Response, next: NextFunction) => {
+    refreshToken(req, res);
   }
 );
 

@@ -16,17 +16,17 @@ export default async function authMiddleware(
       (err: any, decoded: any) => {
         if (err)
           return res
-            .status(400)
+            .status(401)
             .send({ msg: "Erreur lors de l authentication!" });
         if (decoded.isAdmin) {
           if (!req.baseUrl.includes("admin")) {
             return res
-              .status(400)
+              .status(401)
               .send({ msg: "vous n'etes pas un utilisateur!" });
           }
         } else if (!decoded.isAdmin) {
           if (!req.baseUrl.includes("user"))
-            return res.status(400).send({ msg: "vous n'etes pas un admin!" });
+            return res.status(401).send({ msg: "vous n'etes pas un admin!" });
         }
         if (req.baseUrl.includes("user") || req.url.includes("getAdmin"))
           req.body.uid = decoded.uid;
@@ -34,6 +34,6 @@ export default async function authMiddleware(
       }
     );
   } catch (error) {
-    res.status(400).send({ msg: "Erreur lors de l authentication!" });
+    res.status(401).send({ msg: "Erreur lors de l authentication!" });
   }
 }

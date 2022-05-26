@@ -1,16 +1,18 @@
 import express, { NextFunction, Request, Response } from "express";
-import addVirus from "../controller/addVirus";
-import deleteUser from "../controller/deleteUser";
-import getAdmin from "../controller/getAdmin";
-import getStats from "../controller/getStats";
-import getUser from "../controller/getUser";
-import getUsers from "../controller/getUsers";
-import modifyAppNotifications from "../controller/modifyAppNotifications";
-import modifyContactNotifications from "../controller/modifyContactNotifications";
-import modifyMaintenance from "../controller/modifyMaintenance";
-import searchUsers from "../controller/searchUsers";
-import modifyUser from "../controller/userModify";
-import authMiddleware from "../middleware/authMiddleware";
+import addVirus from "../controllers/addVirus";
+import deleteUser from "../controllers/deleteUser";
+import deleteVirus from "../controllers/deleteVirus";
+import getAdmin from "../controllers/getAdmin";
+import getStats from "../controllers/getStats";
+import getUser from "../controllers/getUser";
+import getUsers from "../controllers/getUsers";
+import getViruses from "../controllers/getViruses";
+import modifyAppNotifications from "../controllers/modifyAppNotifications";
+import modifyContactNotifications from "../controllers/modifyContactNotifications";
+import modifyMaintenance from "../controllers/modifyMaintenance";
+import searchUsers from "../controllers/searchUsers";
+import modifyUser from "../controllers/userModify";
+import authMiddleware from "../middlewares/authMiddleware";
 
 const router = express.Router();
 
@@ -26,8 +28,8 @@ router.get("/getUsers", (req: Request, res: Response, next: NextFunction) => {
   getUsers(req, res);
 });
 
-router.get("/getUser", (req: Request, res: Response, next: NextFunction) => {
-  getUser(req, res);
+router.get("/getViruses", (req: Request, res: Response, next: NextFunction) => {
+  getViruses(req, res);
 });
 
 router.get("/getStats", (req: Request, res: Response, next: NextFunction) => {
@@ -43,7 +45,11 @@ router.post(
   }
 );
 
-router.post("/addVirus", (req: Request, res: Response, next: NextFunction) => {
+router.post("/getUser", (req: Request, res: Response, next: NextFunction) => {
+  getUser(req, res);
+});
+
+router.post('/addVirus', (req: Request, res: Response, next: NextFunction) => {
   addVirus(req, res);
 });
 
@@ -75,6 +81,10 @@ router.put(
 );
 
 // DELETE ROUTES
+
+router.delete('/deleteVirus', (req: Request, res: Response, next: NextFunction) => {
+  deleteVirus(req, res);
+});
 
 router.delete(
   "/deleteUser",

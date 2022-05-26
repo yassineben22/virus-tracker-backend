@@ -74,6 +74,11 @@ export default async function register(req: Request, response: Response) {
         });
     })
     .catch((err) => {
+      if(err.code == "auth/email-already-exists"){
+        response
+        .status(400)
+        .send({ msg: "Email existe deja!" });
+      }
       response
         .status(400)
         .send({ msg: "Erreur est survenue lors de la creation" });
