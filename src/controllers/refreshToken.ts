@@ -16,7 +16,7 @@ export default async function refreshToken(
           fcmToken: fcmToken,
         })
         .then(() => {
-          response.status(200);
+          response.status(200).send({msg: "Token mis à jour avec succes"});
         })
         .catch((err) => {
           response
