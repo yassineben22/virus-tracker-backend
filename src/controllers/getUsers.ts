@@ -4,7 +4,9 @@ import admin from "firebase-admin";
 export default async function getUsers(req: Request, res: Response) {
   try {
     let usersList: admin.firestore.DocumentData[] = [];
+    let final: any[] = [];
     let uid;
+    let i, j;
     await admin
       .firestore()
       .collection("users")
@@ -16,6 +18,9 @@ export default async function getUsers(req: Request, res: Response) {
             uid,
             ...user.data(),
           });
+          for(i=0;i<Math.floor(usersList.length/5);i++){
+            // console.log(usersList[i])
+          }
         });
         return res.status(200).send(usersList);
       })

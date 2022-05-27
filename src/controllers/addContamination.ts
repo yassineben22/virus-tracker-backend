@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import admin from "firebase-admin";
 
 export default async function addContamination(req: Request, res: Response) {
-  try {
     let { uid, uidVirus, contaminationTime } = req.body;
     let fcmTokens: string[] = [];
     if (!uid || !uidVirus || !contaminationTime)
@@ -38,11 +37,11 @@ export default async function addContamination(req: Request, res: Response) {
                 const message = {
                   notification: {
                     title: 'Contact détecté!',
-                    body: 'rak tla9iti m3a chi wa7d mrid fkerro (ycr).'
+                    body: 'vous avez rencontré un malade!'
                   },
                   tokens: fcmTokens,
                 };
-
+                if(fcmTokens.length > 0){
                 await admin.messaging().sendMulticast(message).then((response) => {
                   if (response.failureCount > 0) {
                     response.responses.forEach(async (resp, idx) => {
@@ -51,7 +50,7 @@ export default async function addContamination(req: Request, res: Response) {
                       }
                     });
                   }
-                });
+                });}
               }
               await admin
                 .firestore()
@@ -83,7 +82,4 @@ export default async function addContamination(req: Request, res: Response) {
           return res.status(400).send({ msg: "Virus introuvable!" });
         }
       }).catch(()=>{res.status(400).send({msg: "Une erreur est survenue!"})})
-  } catch (error) {
-    return res.status(400).send({ msg: "Une erreur est survenue!" });
-  }
 }
