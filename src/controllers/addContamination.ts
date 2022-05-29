@@ -53,6 +53,14 @@ export default async function addContamination(req: Request, res: Response) {
                 });}
               }
               await admin
+              .firestore()
+              .collection("users")
+              .doc(uid)
+              .update({
+                infected: true,
+              })
+              .then(async () => {
+                await admin
                 .firestore()
                 .collection("contaminations")
                 .add({
@@ -72,6 +80,10 @@ export default async function addContamination(req: Request, res: Response) {
                       msg: "Erreur lors de l'ajout de la contamination!",
                     });
                 });
+              }).catch(() => {
+                return res.status(400).send({ msg: "Virus introuvable!" })
+              })
+              
             })
             .catch(() => {
               return res

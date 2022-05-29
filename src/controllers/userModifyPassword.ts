@@ -7,6 +7,20 @@ export default async function userModifyPassword(req: Request, res: Response) {
   let { uid, email, previousPassword, newPassword } = req.body;
   if (!email || !previousPassword || !newPassword)
     return res.status(400).send({ msg: "Données incomplètes!" });
+
+  if (
+    newPassword.length < 8 ||
+    newPassword.length > 50 ||
+    !/^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*]{8,50}$/.test(
+      newPassword
+    )
+  ) {
+    return res
+      .status(400)
+      .send({
+        msg: "Le mot de passe doit contenit entre 8 et 50 caractères y compris une majuscule un nombre et un caractère spécial!",
+      });
+  }
   axios
     .post(
       `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.API_KEY}`,
