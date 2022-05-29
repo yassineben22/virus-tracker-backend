@@ -6,26 +6,28 @@ export default async function addContact(req: Request, res: Response) {
     let { uid, contactUid, contactTime } = req.body;
     if (!req.body.uid || !req.body.contactUid || !req.body.contactTime)
       return res.status(400).send({ msg: "Données incomplètes!" });
+    let user = await admin
+      .firestore()
+      .collection("users")
+      .doc(contactUid)
+      .get()
 
+      if(!user.exists){
+        return res.status(400).send({ msg: "Utilisateur Introuvable!" });
+      }
     await admin
       .firestore()
       .collection("users")
       .doc(uid)
       .collection("contacts")
-      .where("contactUid", "==", contactUid)
       .get()
       .then(async (contacts) => {
-        if (contacts.docs[0].exists) {
-          await admin
-            .firestore()
-            .collection("users")
-            .doc(uid)
-            .collection("contacts")
-            .doc(contacts.docs[0].id)
-            .delete()
-            .catch(() => {
-              return res.status(400).send({ msg: "Une erreur est survenue!" });
-            });
+        if (contacts.docs.length >0) {
+          contacts.forEach(async (contact) => {
+            if(contact.data().contactUid === contactUid) {
+              await admin.firestore().collection("users").doc(uid).collection("contacts").doc(contact.id).delete().then(()=>{}).catch(()=>{});
+            }
+          });
         }
       });
     await admin
@@ -38,7 +40,7 @@ export default async function addContact(req: Request, res: Response) {
         contactTime: contactTime,
       })
       .then(() => {
-        return res.status(200).send("Contact ajouté avec succes!");
+        return res.status(200).send({msg: "Contact ajouté avec succes!"});
       })
       .catch((err) => {
         return res

@@ -10,7 +10,7 @@ export default async function addVirus(req: Request, response: Response) {
         .collection("viruses")
         .add({
           name: req.body.name,
-          added: getDate()
+          added: getDate(),
         })
         .then(() => {
           response.status(200).send({
