@@ -3,7 +3,7 @@ import admin from "firebase-admin";
 
 export default async function addContact(req: Request, res: Response) {
   try {
-    let { uid, contactUid, contactTime } = req.body;
+    let { uid, contactUid, contactTime, latitude, longitude } = req.body;
     if (!req.body.uid || !req.body.contactUid || !req.body.contactTime)
       return res.status(400).send({ msg: "Données incomplètes!" });
     let user = await admin
@@ -38,6 +38,8 @@ export default async function addContact(req: Request, res: Response) {
       .add({
         contactUid: contactUid,
         contactTime: contactTime,
+        latitude: latitude,
+        longitude: longitude
       })
       .then(() => {
         return res.status(200).send({msg: "Contact ajouté avec succes!"});
