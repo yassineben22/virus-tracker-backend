@@ -6,8 +6,8 @@ import getDate from "../utils/getDate";
 export default async function register(req: Request, response: Response) {
   let errmsgs = [];
   let date = new Date();
-  let { birthDate, email, fullName, gender, password, username } = req.body;
-  if (!birthDate || !email || !fullName || !gender || !password || !username)
+  let { birthDate, email, fullName, gender, password, cin } = req.body;
+  if (!birthDate || !email || !fullName || !gender || !password || !cin)
     return response.status(400).send({ msg: "Données incomplètes!" });
   else {
     if (
@@ -29,9 +29,7 @@ export default async function register(req: Request, response: Response) {
       errmsgs.push(
         "Le mot de passe doit contenit entre 8 et 50 caractères y compris une majuscule un nombre et un caractère spécial!"
       );
-    } else if (username.length < 5) {
-      errmsgs.push("le nom d'utilisateur doit contenir au moins 5 caractères");
-    }
+    } 
     if (errmsgs.length != 0)
       return response.status(400).send({
         title: "Le données sont invalides!",
@@ -58,7 +56,7 @@ export default async function register(req: Request, response: Response) {
           infected: false,
           password: password,
           registerDate: getDate(),
-          username: username,
+          cin: cin,
           lastModified: getDate(),
           refreshDate: getDate(),
         })

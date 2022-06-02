@@ -13,7 +13,7 @@ export default async function getViruses(req: Request, res: Response) {
         users.forEach((virus) => {
           uid = virus.id;
           virusesList.push({
-            uid,
+            'uid': uid,
             'virusName': virus.data().name,
             'added': virus.data().added,
           });

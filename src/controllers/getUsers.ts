@@ -1,6 +1,19 @@
 import { Request, Response } from "express";
 import admin from "firebase-admin";
 
+function chunk (items: any, size: number) {  
+  const chunks = []
+  items = [].concat(...items)
+
+  while (items.length) {
+    chunks.push(
+      items.splice(0, size)
+    )
+  }
+
+  return chunks
+}
+
 export default async function getUsers(req: Request, res: Response) {
   try {
     let usersList: admin.firestore.DocumentData[] = [];
@@ -17,7 +30,8 @@ export default async function getUsers(req: Request, res: Response) {
             ...user.data(),
           });
         });
-        return res.status(200).send(usersList);
+        let newList = chunk(usersList, 2);
+        return res.status(200).send(newList);
       })
       .catch((err) => {
         res.status(400).send(err);
