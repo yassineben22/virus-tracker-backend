@@ -5,7 +5,6 @@ import getDate from "../utils/getDate";
 
 export default async function register(req: Request, response: Response) {
   let errmsgs = [];
-  let date = new Date();
   let { birthDate, email, fullName, gender, password, cin } = req.body;
   if (!birthDate || !email || !fullName || !gender || !password || !cin)
     return response.status(400).send({ msg: "Données incomplètes!" });
