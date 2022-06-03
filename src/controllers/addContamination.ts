@@ -3,7 +3,7 @@ import admin from "firebase-admin";
 
 export default async function addContamination(req: Request, res: Response) {
     let { uid, uidVirus, contaminationTime } = req.body;
-    let fcmTokens: string[] = [];
+    let appIds: string[] = [];
     if (!uid || !uidVirus || !contaminationTime)
       return res.status(400).send({ msg: "Données incomplètes!" });
 
@@ -29,18 +29,11 @@ export default async function addContamination(req: Request, res: Response) {
                     .doc(contact.id)
                     .get()
                     .then(function (toSend: admin.firestore.DocumentData) {
-                      let fcmToken:string = toSend.data().fcmToken;
-                      fcmTokens.push(fcmToken);
+                      let appId:string = toSend.data().appId;
+                      appIds.push(appId);
                     })
                     .catch(() => {});
                 });
-                const message = {
-                  notification: {
-                    title: 'Contact détecté!',
-                    body: 'vous avez rencontré un malade!'
-                  },
-                  tokens: fcmTokens,
-                };
                 if(fcmTokens.length > 0){
                 await admin.messaging().sendMulticast(message).then((response) => {
                   if (response.failureCount > 0) {

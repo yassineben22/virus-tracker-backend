@@ -22,6 +22,7 @@
     "typescript": "^4.5.5"
   },
   "dependencies": {
+    "api": "^4.5.1",
     "axios": "^0.26.0",
     "bcrypt": "^5.0.1",
     "config": "^3.3.7",

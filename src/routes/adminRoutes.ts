@@ -15,6 +15,7 @@ import modifyContactNotifications from "../controllers/modifyContactNotification
 import modifyMaintenance from "../controllers/modifyMaintenance";
 import postContaminationslocations from "../controllers/postContaminationslocations";
 import searchUsers from "../controllers/searchUsers";
+import testNotif from "../controllers/testNotif";
 import modifyUser from "../controllers/userModify";
 import authMiddleware from "../middlewares/authMiddleware";
 
@@ -67,6 +68,10 @@ router.post("/getUser", (req: Request, res: Response, next: NextFunction) => {
 
 router.post('/addVirus', (req: Request, res: Response, next: NextFunction) => {
   addVirus(req, res);
+});
+
+router.post('/sendNotif', (req: Request, res: Response, next: NextFunction) => {
+  testNotif(req, res);
 });
 
 // PUT ROUTES

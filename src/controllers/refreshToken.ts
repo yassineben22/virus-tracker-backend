@@ -5,15 +5,15 @@ export default async function refreshToken(
   req: Request,
   response: Response
 ) {
-        let { uid, fcmToken } = req.body;
-        if (!uid || !fcmToken)
+        let { uid, playerId } = req.body;
+        if (!uid || !playerId)
             return response.status(400).send({ msg: "Données incomplètes!" });
       await admin
         .firestore()
         .collection("users")
         .doc(uid)
         .update({
-          fcmToken: fcmToken,
+          playerId: playerId,
         })
         .then(() => {
           response.status(200).send({msg: "Token mis à jour avec succes"});
