@@ -32,8 +32,13 @@ export default async function getViruses(req: Request, res: Response) {
             'added': virus.data().added,
           });
         });
-        final = chunk(virusesList, 4);
+        if(!req.baseUrl.includes("admin")){
+          final = chunk(virusesList, 4);
         return res.status(200).send(final);
+        } 
+        else {
+          return res.status(200).send(virusesList);
+        }
       })
       .catch((err) => {
         res.status(400).send(err);
