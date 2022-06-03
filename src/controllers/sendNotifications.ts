@@ -24,7 +24,7 @@ export default function sendNotifications(list: any[]) {
       console.log("ERROR:");
       console.log(e);
     });
-
+    console.log(list)
     var message = {
         app_id: "f77b95c9-b3c5-4174-bdc7-15ef7c959728",
         contents: {"en": "Vous avez rencontré ycr"},

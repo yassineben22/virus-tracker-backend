@@ -5,6 +5,7 @@ import sendNotifications from "./sendNotifications";
 export default async function addContamination(req: Request, res: Response) {
     let { uid, uidVirus, contaminationTime, latitude, longitude } = req.body;
     let appIds: string[] = [];
+    let idx1 = 0, idx2 =0 , idx3 = 0; 
     if (!uid || !uidVirus || !contaminationTime || !latitude || !longitude) {
       return res.status(400).send({ msg: "Données incomplètes!" });
     }
@@ -23,18 +24,19 @@ export default async function addContamination(req: Request, res: Response) {
             .get()
             .then(async (contacts) => {
               if (contacts.docs.length > 0) {
-                contacts.forEach(async (contact) => {
+                while(idx1<contacts.docs.length){
                   await admin
                     .firestore()
                     .collection("users")
-                    .doc(contact.id)
+                    .doc(contacts.docs[idx1].data().contactUid)
                     .get()
                     .then(function (toSend: admin.firestore.DocumentData) {
-                      let appId:string = toSend.data().appId;
-                      appIds.push(appId);
+                      let playerId:string = toSend.data().playerId;
+                      appIds.push(playerId);
                     })
                     .catch(() => {});
-                });
+                  idx1++;
+                }
                 if(appIds.length > 0){
                   sendNotifications(appIds)
                 }
