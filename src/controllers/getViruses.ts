@@ -1,9 +1,23 @@
 import { Request, Response } from "express";
 import admin from "firebase-admin";
 
+function chunk (items: any, size: number) {  
+  const chunks = []
+  items = [].concat(...items)
+
+  while (items.length) {
+    chunks.push(
+      items.splice(0, size)
+    )
+  }
+
+  return chunks
+}
+
 export default async function getViruses(req: Request, res: Response) {
   try {
     let virusesList: admin.firestore.DocumentData[] = [];
+    let final: admin.firestore.DocumentData[] = [];
     let uid;
     await admin
       .firestore()
@@ -18,7 +32,8 @@ export default async function getViruses(req: Request, res: Response) {
             'added': virus.data().added,
           });
         });
-        return res.status(200).send(virusesList);
+        final = chunk(virusesList, 4);
+        return res.status(200).send(final);
       })
       .catch((err) => {
         res.status(400).send(err);

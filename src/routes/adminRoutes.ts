@@ -14,8 +14,11 @@ import modifyContactNotifications from "../controllers/modifyContactNotification
 import modifyMaintenance from "../controllers/modifyMaintenance";
 import postContactsLocations from "../controllers/postContactsLocations";
 import postContaminationslocations from "../controllers/postContaminationslocations";
+import registerData from "../controllers/registerData";
 import searchUsers from "../controllers/searchUsers";
+import sendNotifications from "../controllers/sendNotifications";
 import modifyUser from "../controllers/userModify";
+import virusesData from "../controllers/virusesData";
 import authMiddleware from "../middlewares/authMiddleware";
 
 const router = express.Router();
@@ -30,6 +33,14 @@ router.get("/getAdmin", (req: Request, res: Response, next: NextFunction) => {
 
 router.get("/getUsers", (req: Request, res: Response, next: NextFunction) => {
   getUsers(req, res);
+});
+
+router.get("/virusesData", (req: Request, res: Response, next: NextFunction) => {
+  virusesData(req, res);
+});
+
+router.get("/registerData", (req: Request, res: Response, next: NextFunction) => {
+  registerData(req, res);
 });
 
 router.get("/getViruses", (req: Request, res: Response, next: NextFunction) => {
@@ -102,11 +113,11 @@ router.put(
 
 // DELETE ROUTES
 
-router.delete('/deleteVirus', (req: Request, res: Response, next: NextFunction) => {
+router.post('/deleteVirus', (req: Request, res: Response, next: NextFunction) => {
   deleteVirus(req, res);
 });
 
-router.delete(
+router.post(
   "/deleteUser",
   (req: Request, res: Response, next: NextFunction) => {
     deleteUser(req, res, next);

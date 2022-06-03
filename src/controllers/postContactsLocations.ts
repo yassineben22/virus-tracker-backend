@@ -8,24 +8,39 @@ export default async function postContactsLocations(
 ) {
   try {
     let { dateStart, dateEnd } = req.body;
-    if(!dateStart || !dateEnd) return res.status(400).send({msg: "Données incomplètes!"});
+    if (!dateStart || !dateEnd)
+      return res.status(400).send({ msg: "Données incomplètes!" });
     let contactsList: admin.firestore.DocumentData[] = [];
     let contacts;
     await admin
       .firestore()
       .collection("users")
-      .where("infected" , "==", true)
+      .where("infected", "==", true)
       .get()
       .then(async (users) => {
         let indexUsers = 0;
-        while(indexUsers < users.docs.length){
-          contacts = await admin.firestore().collection("users").doc(users.docs[indexUsers].id).collection("contacts").get();
+        while (indexUsers < users.docs.length) {
+          contacts = await admin
+            .firestore()
+            .collection("users")
+            .doc(users.docs[indexUsers].id)
+            .collection("contacts")
+            .get();
           let index = 0;
-          while(index < contacts.docs.length){
-            contactsList.push({
-              lat: contacts.docs[index].data().latitude,
-              lng: contacts.docs[index].data().longitude,
-            });
+          while (index < contacts.docs.length) {
+            if (
+              checkDateIsBetween(
+                dateStart,
+                dateEnd,
+                contacts.docs[index].data().contactTime
+              )
+            ) {
+              contactsList.push({
+                lat: contacts.docs[index].data().latitude,
+                lng: contacts.docs[index].data().longitude,
+              });
+            }
+
             index++;
           }
           indexUsers++;

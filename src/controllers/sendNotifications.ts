@@ -1,3 +1,4 @@
+
 export default function sendNotifications(list: any[]) {
     var headers = {
       "Content-Type": "application/json; charset=utf-8"

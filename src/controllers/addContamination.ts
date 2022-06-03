@@ -3,11 +3,11 @@ import admin from "firebase-admin";
 import sendNotifications from "./sendNotifications";
 
 export default async function addContamination(req: Request, res: Response) {
-    let { uid, uidVirus, contaminationTime } = req.body;
+    let { uid, uidVirus, contaminationTime, latitude, longitude } = req.body;
     let appIds: string[] = [];
-    if (!uid || !uidVirus || !contaminationTime)
+    if (!uid || !uidVirus || !contaminationTime || !latitude || !longitude) {
       return res.status(400).send({ msg: "Données incomplètes!" });
-
+    }
     await admin
       .firestore()
       .collection("viruses")
@@ -54,6 +54,8 @@ export default async function addContamination(req: Request, res: Response) {
                   uid: uid,
                   uidVirus: uidVirus,
                   contaminationTime: contaminationTime,
+                  latitude: latitude, 
+                  longitude: longitude
                 })
                 .then(() => {
                   return res

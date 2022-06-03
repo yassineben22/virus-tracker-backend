@@ -6,7 +6,7 @@ export default async function deleteVirus(req: Request, response: Response) {
     return response.status(400).send({ msg: "Données incomplètes!" });
   await admin
     .firestore()
-    .collection("virus")
+    .collection("viruses")
     .doc(req.body.uid)
     .delete()
     .then(() => {

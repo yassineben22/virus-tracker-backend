@@ -30,7 +30,7 @@ export default async function getUsers(req: Request, res: Response) {
             ...user.data(),
           });
         });
-        let newList = chunk(usersList, 2);
+        let newList = chunk(usersList, 5);
         return res.status(200).send(newList);
       })
       .catch((err) => {
