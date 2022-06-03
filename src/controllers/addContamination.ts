@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import admin from "firebase-admin";
+import sendNotifications from "./sendNotifications";
 
 export default async function addContamination(req: Request, res: Response) {
     let { uid, uidVirus, contaminationTime } = req.body;
@@ -34,16 +35,9 @@ export default async function addContamination(req: Request, res: Response) {
                     })
                     .catch(() => {});
                 });
-                if(fcmTokens.length > 0){
-                await admin.messaging().sendMulticast(message).then((response) => {
-                  if (response.failureCount > 0) {
-                    response.responses.forEach(async (resp, idx) => {
-                      if (!resp.success) {
-                        await admin.firestore().collection("failedNotifications").add({fcmToken: fcmTokens[idx]})
-                      }
-                    });
-                  }
-                });}
+                if(appIds.length > 0){
+                  sendNotifications(appIds)
+                }
               }
               await admin
               .firestore()

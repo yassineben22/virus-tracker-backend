@@ -1,11 +1,14 @@
 import { Request, Response } from "express";
 import admin from "firebase-admin";
+import checkDateIsBetween from "../utils/checkDateIsBetween";
 
-export default async function getContactsLocations(
+export default async function postContactsLocations(
   req: Request,
   res: Response
 ) {
   try {
+    let { dateStart, dateEnd } = req.body;
+    if(!dateStart || !dateEnd) return res.status(400).send({msg: "Données incomplètes!"});
     let contactsList: admin.firestore.DocumentData[] = [];
     let contacts;
     await admin

@@ -4,7 +4,6 @@ import deleteUser from "../controllers/deleteUser";
 import deleteVirus from "../controllers/deleteVirus";
 import getAdmin from "../controllers/getAdmin";
 import getContactsLocations from "../controllers/getContactsLocation";
-import getContaminatedContactsLocations from "../controllers/getContactsLocation";
 import getContaminationslocations from "../controllers/getContaminationslocations";
 import getStats from "../controllers/getStats";
 import getUser from "../controllers/getUser";
@@ -13,9 +12,9 @@ import getViruses from "../controllers/getViruses";
 import modifyAppNotifications from "../controllers/modifyAppNotifications";
 import modifyContactNotifications from "../controllers/modifyContactNotifications";
 import modifyMaintenance from "../controllers/modifyMaintenance";
+import postContactsLocations from "../controllers/postContactsLocations";
 import postContaminationslocations from "../controllers/postContaminationslocations";
 import searchUsers from "../controllers/searchUsers";
-import testNotif from "../controllers/testNotif";
 import modifyUser from "../controllers/userModify";
 import authMiddleware from "../middlewares/authMiddleware";
 
@@ -45,6 +44,10 @@ router.get("/getContactsLocations", (req: Request, res: Response, next: NextFunc
   getContactsLocations(req, res);
 });
 
+router.post("postContactsLocations", (req: Request, res: Response, next: NextFunction) => {
+  postContactsLocations(req, res);
+});
+
 router.get("/getContaminationslocations", (req: Request, res: Response, next: NextFunction) => {
   getContaminationslocations(req, res);
 });
@@ -68,10 +71,6 @@ router.post("/getUser", (req: Request, res: Response, next: NextFunction) => {
 
 router.post('/addVirus', (req: Request, res: Response, next: NextFunction) => {
   addVirus(req, res);
-});
-
-router.post('/sendNotif', (req: Request, res: Response, next: NextFunction) => {
-  testNotif(req, res);
 });
 
 // PUT ROUTES

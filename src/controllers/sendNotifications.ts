@@ -1,6 +1,4 @@
-import {Response , Request} from 'express';
-
-var sendNotification = function(data: any) {
+export default function sendNotifications(list: any[]) {
     var headers = {
       "Content-Type": "application/json; charset=utf-8"
     };
@@ -25,23 +23,13 @@ var sendNotification = function(data: any) {
       console.log("ERROR:");
       console.log(e);
     });
+
+    var message = {
+        app_id: "f77b95c9-b3c5-4174-bdc7-15ef7c959728",
+        contents: {"en": "Vous avez rencontré ycr"},
+        include_player_ids: list
+      };
     
-    req.write(JSON.stringify(data));
+    req.write(JSON.stringify(message));
     req.end();
-  };
-  
-  var message = { 
-    app_id: "f77b95c9-b3c5-4174-bdc7-15ef7c959728",
-    contents: {"en": "Vous avez rencontré ycr", "body": "body test"},
-    include_player_ids: ["5d763deb-d7bb-4634-8fab-8b0a07d540eb"]
-  };
-
-export default async function testNotif(req: Request, response: Response) {
-
-  
-  sendNotification(message);
-
-    response.status(200).send({
-        msg: "Notification envoyée avec succes",
-        });
-}
+};
