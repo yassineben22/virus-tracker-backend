@@ -16,8 +16,6 @@ export default async function register(req: Request, response: Response) {
       )
     ) {
       errmsgs.push("Email invalide!");
-    } else if (fullName.length < 5) {
-      errmsgs.push("Le nom doit contenir au moins 5 caractères!");
     } else if (
       password.length < 8 ||
       password.length > 50 ||
@@ -47,7 +45,6 @@ export default async function register(req: Request, response: Response) {
         .collection("users")
         .doc(userRecord.uid)
         .set({
-          age: getAge(birthDate),
           birthDate: birthDate,
           email: email,
           fullName: fullName,
@@ -57,7 +54,6 @@ export default async function register(req: Request, response: Response) {
           registerDate: getDate(),
           cin: cin,
           lastModified: getDate(),
-          refreshDate: getDate(),
         })
         .then(() => {
           response.status(200).send({
