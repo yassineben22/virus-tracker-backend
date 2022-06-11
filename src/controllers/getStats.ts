@@ -9,10 +9,12 @@ export default async function getStats(req: Request, res: Response) {
       .collection("users")
       .get()
       .then((users) => {
-        users.forEach((user) => {
+        let idx = 0
+        while (idx < users.docs.length) {
           usersCount++;
-          if (user.data().infected) infectedCount++;
-        });
+          if (users.docs[idx].data().infected) infectedCount++;
+          idx++;
+        }
         return res.status(200).send({
           usersCount: usersCount,
           infectedCount: infectedCount,

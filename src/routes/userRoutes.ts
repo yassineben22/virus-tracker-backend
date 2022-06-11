@@ -13,25 +13,8 @@ import userRegister from "../controllers/userRegister";
 import authMiddleware from "../middlewares/authMiddleware";
 
 const router = express.Router();
-// GET ROUTES
 
-router.get(
-  "/getUser",
-  authMiddleware,
-  async (req: Request, res: Response, next: NextFunction) => {
-    await getUser(req, res);
-  }
-);
-
-router.get(
-  "/getViruses",
-  authMiddleware,
-  (req: Request, res: Response, next: NextFunction) => {
-    getViruses(req, res);
-  }
-);
-
-// POST ROUTES
+//unprotected routes
 
 router.post("/register", (req: Request, res: Response, next: NextFunction) => {
   userRegister(req, res);
@@ -45,33 +28,46 @@ router.post(
 )
 
 router.post(
-  "/addContamination",
-  authMiddleware,
-  (req: Request, res: Response, next: NextFunction) => {
-    addContamination(req, res);
-  }
-);
-
-router.post(
   '/checkEmail',
   (req: Request, res: Response, next: NextFunction) => {
     checkEmail(req, res);
   }
 )
 
+router.use(authMiddleware);
+
+//protected routes
+
+router.get(
+  "/getUser",
+  async (req: Request, res: Response, next: NextFunction) => {
+    await getUser(req, res);
+  }
+);
+
+router.get(
+  "/getViruses",
+  (req: Request, res: Response, next: NextFunction) => {
+    getViruses(req, res);
+  }
+);
+
+router.post(
+  "/addContamination",
+  (req: Request, res: Response, next: NextFunction) => {
+    addContamination(req, res);
+  }
+);
+
 router.post(
   "/addContact",
-  authMiddleware,
   (req: Request, res: Response, next: NextFunction) => {
     addContact(req, res);
   }
 );
 
-// PUT ROUTES
-
 router.put(
   "/modifyUser",
-  authMiddleware,
   (req: Request, res: Response, next: NextFunction) => {
     modifyUser(req, res, next);
   }
@@ -79,7 +75,6 @@ router.put(
 
 router.put(
   "/updateToken",
-  authMiddleware,
   (req: Request, res: Response, next: NextFunction) => {
     refreshToken(req, res);
   }
@@ -87,17 +82,14 @@ router.put(
 
 router.put(
   "/modifyPassword",
-  authMiddleware,
   async (req: Request, res: Response, next: NextFunction) => {
     await userModifyPassword(req, res);
   }
 );
 
-// DELETE ROUTES
 
 router.delete(
   "/deleteUser",
-  authMiddleware,
   (req: Request, res: Response, next: NextFunction) => {
     deleteUser(req, res, next);
   }

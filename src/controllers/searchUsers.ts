@@ -21,7 +21,7 @@ export default async function searchUsers(req: Request, res: Response) {
     let usersList: admin.firestore.DocumentData[] = [];
     let final: admin.firestore.DocumentData[] = [];
     let uid: string,
-      searchValue = req.body.searchValue;
+      searchValue:String = req.body.searchValue;
     await admin
       .firestore()
       .collection("users")
@@ -29,8 +29,7 @@ export default async function searchUsers(req: Request, res: Response) {
       .then((users) => {
         users.forEach((user) => {
           if (
-            user.data().fullName.includes(searchValue) ||
-            user.data().username.includes(searchValue) ||
+            user.data().fullName.toLowerCase().includes(searchValue.toLowerCase()) ||
             user.id == searchValue
           ) {
             uid = user.id;
@@ -45,7 +44,7 @@ export default async function searchUsers(req: Request, res: Response) {
         return res.status(200).send(final);
       })
       .catch((err) => {
-        res.status(400).send({ msg: "Aucun utilisateur trouvé!" });
+        res.status(400).send({ msg: err.message });
       });
   } catch (err) {
     return res.status(400).send({msg: "Erreur inconnue!"});

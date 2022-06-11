@@ -9,14 +9,10 @@ import getStats from "../controllers/getStats";
 import getUser from "../controllers/getUser";
 import getUsers from "../controllers/getUsers";
 import getViruses from "../controllers/getViruses";
-import modifyAppNotifications from "../controllers/modifyAppNotifications";
-import modifyContactNotifications from "../controllers/modifyContactNotifications";
-import modifyMaintenance from "../controllers/modifyMaintenance";
 import postContactsLocations from "../controllers/postContactsLocations";
 import postContaminationslocations from "../controllers/postContaminationslocations";
 import registerData from "../controllers/registerData";
 import searchUsers from "../controllers/searchUsers";
-import sendNotifications from "../controllers/sendNotifications";
 import modifyUser from "../controllers/userModify";
 import virusesData from "../controllers/virusesData";
 import authMiddleware from "../middlewares/authMiddleware";
@@ -84,35 +80,6 @@ router.post('/addVirus', (req: Request, res: Response, next: NextFunction) => {
   addVirus(req, res);
 });
 
-// PUT ROUTES
-
-router.put("/modifyUser", (req: Request, res: Response, next: NextFunction) => {
-  modifyUser(req, res, next);
-});
-
-router.put(
-  "/modifyMaintenance",
-  (req: Request, res: Response, next: NextFunction) => {
-    modifyMaintenance(req, res, next);
-  }
-);
-
-router.put(
-  "/modifyAppNotifications",
-  (req: Request, res: Response, next: NextFunction) => {
-    modifyAppNotifications(req, res, next);
-  }
-);
-
-router.put(
-  "/modifyContactNotifications",
-  (req: Request, res: Response, next: NextFunction) => {
-    modifyContactNotifications(req, res, next);
-  }
-);
-
-// DELETE ROUTES
-
 router.post('/deleteVirus', (req: Request, res: Response, next: NextFunction) => {
   deleteVirus(req, res);
 });
@@ -123,6 +90,12 @@ router.post(
     deleteUser(req, res, next);
   }
 );
+
+// PUT ROUTES
+
+router.put("/modifyUser", (req: Request, res: Response, next: NextFunction) => {
+  modifyUser(req, res, next);
+});
 
 module.exports = {
   routes: router,

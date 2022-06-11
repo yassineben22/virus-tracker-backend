@@ -1,7 +1,5 @@
 import { Request, Response } from "express";
 import admin from "firebase-admin";
-import getDifference from "../utils/getDifference";
-import refreshData from "../utils/refreshData";
 
 function chunk (items: any, size: number) {  
   const chunks = []
@@ -55,14 +53,20 @@ export default async function getUser(req: Request, res: Response) {
         }
         idx++;
       }
+      let contactsFinal = chunk(contacts, 3);
+      return res.send({
+        uid: user.id,
+        ...user.data(),
+        contacts: contactsFinal,
+        heat: contactsArray,
+      });
     }
-    if (getDifference(user.data().refreshDate) != 0) refreshData(user.id);
-    let contactsFinal = chunk(contacts, 3);
-    res.send({
-      uid: user.id,
-      ...user.data(),
-      contacts: contactsFinal,
-      heat: contactsArray,
-    });
+    else {
+      return res.send({
+        uid: user.id,
+        ...user.data(),
+      });
+    }
+    
   } else res.status(400).send({ msg: "Utilisateur introuvable!" });
 }

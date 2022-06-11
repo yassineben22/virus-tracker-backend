@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import admin from "firebase-admin";
-import getAge from "../utils/getAge";
 import getDate from "../utils/getDate";
 
 export default async function register(req: Request, response: Response) {
