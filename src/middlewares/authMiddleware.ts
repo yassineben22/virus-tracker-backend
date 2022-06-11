@@ -28,7 +28,7 @@ export default async function authMiddleware(
           if (!req.baseUrl.includes("user"))
             return res.status(401).send({ msg: "vous n'etes pas un admin!" });
         }
-        if (req.baseUrl.includes("user") || req.url.includes("getAdmin"))
+        if (req.baseUrl.includes("user") || req.url.includes("getAdmin") || req.url.includes("modifyAdmin"))
           req.body.uid = decoded.uid;
         next();
       }

@@ -9,6 +9,7 @@ import getStats from "../controllers/getStats";
 import getUser from "../controllers/getUser";
 import getUsers from "../controllers/getUsers";
 import getViruses from "../controllers/getViruses";
+import modifyAdmin from "../controllers/modifyAdmin";
 import postContactsLocations from "../controllers/postContactsLocations";
 import postContaminationslocations from "../controllers/postContaminationslocations";
 import registerData from "../controllers/registerData";
@@ -95,6 +96,10 @@ router.post(
 
 router.put("/modifyUser", (req: Request, res: Response, next: NextFunction) => {
   modifyUser(req, res, next);
+});
+
+router.put("/modifyAdmin", (req: Request, res: Response) => {
+  modifyAdmin(req, res);
 });
 
 module.exports = {
