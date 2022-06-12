@@ -20,6 +20,11 @@ export default async function modifyAdmin(req: Request, res: Response) {
                 res.status(400).send({ msg: "Erreur lors de la modification de l'admin!" });
             })
         }).catch((err) => {
+            if(err.code == "auth/email-already-exists"){
+                return res
+                .status(400)
+                .send({ msg: "Email existe deja!" });
+              }
             res.status(400).send({ msg: "Erreur lors de la modification de l'utilisateur!" });
         })
 

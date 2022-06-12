@@ -8,8 +8,10 @@ import getContaminationslocations from "../controllers/getContaminationslocation
 import getStats from "../controllers/getStats";
 import getUser from "../controllers/getUser";
 import getUsers from "../controllers/getUsers";
+import getVirus from "../controllers/getVirus";
 import getViruses from "../controllers/getViruses";
 import modifyAdmin from "../controllers/modifyAdmin";
+import modifyVirus from "../controllers/modifyVirus";
 import postContactsLocations from "../controllers/postContactsLocations";
 import postContaminationslocations from "../controllers/postContaminationslocations";
 import registerData from "../controllers/registerData";
@@ -42,6 +44,14 @@ router.get("/registerData", (req: Request, res: Response, next: NextFunction) =>
 
 router.get("/getViruses", (req: Request, res: Response, next: NextFunction) => {
   getViruses(req, res);
+});
+
+router.post("/getVirus", (req: Request, res: Response, next: NextFunction) => {
+  getVirus(req, res);
+});
+
+router.put("/modifyVirus", (req: Request, res: Response, next: NextFunction) => {
+  modifyVirus(req, res);
 });
 
 router.get("/getStats", (req: Request, res: Response, next: NextFunction) => {
