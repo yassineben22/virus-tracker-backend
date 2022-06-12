@@ -20,10 +20,10 @@ export default async function virusesData(req: Request, res: Response){
                 });
                 idx1++;
               }
-            res.status(200).send(final);
+              return res.status(200).send(final);
           })
           .catch((err) => {
-            res.status(400).send(err);
+            return res.status(400).send(err);
           });
       } catch (err) {
         return res.status(400).send({ msg: "Erreur inconnue!" });

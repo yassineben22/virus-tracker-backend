@@ -68,5 +68,5 @@ export default async function getUser(req: Request, res: Response) {
       });
     }
     
-  } else res.status(400).send({ msg: "Utilisateur introuvable!" });
+  } else return res.status(400).send({ msg: "Utilisateur introuvable!" });
 }

@@ -8,11 +8,11 @@ export default async function checkEmail(req: Request, res: Response) {
     .auth()
     .getUserByEmail(email)
     .then((user) => {
-      res.status(200).send({msg: "Email existe!"});
+      return res.status(200).send({msg: "Email existe!"});
     })
     .catch((err) => {
       if(err.code = "auth/user-not-found")
-        res.status(400).send({msg: "Email n'existe pas!"});
-      res.status(400).send({msg: "Une erreur est survenue!"})
+      return res.status(400).send({msg: "Email n'existe pas!"});
+      return res.status(400).send({msg: "Une erreur est survenue!"})
     })
 }

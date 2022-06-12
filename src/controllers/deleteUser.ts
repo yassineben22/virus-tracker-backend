@@ -19,18 +19,18 @@ export default async function deleteUser(
         .doc(uid)
         .delete()
         .then(() => {
-          response
+          return response
             .status(200)
             .send({ msg: "Utilisateur supprimé avec succes" });
         })
         .catch((err) => {
-          response
+          return response
             .status(400)
             .send({ msg: "Erreur est survenue lors de la supression" });
         });
     })
     .catch((err) => {
-      response
+      return response
         .status(400)
         .send({ msg: "Erreur est survenue lors de la supression" });
     });

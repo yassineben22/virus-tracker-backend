@@ -39,12 +39,12 @@ export default async function login(req: Request, response: Response) {
             expiresIn: `${process.env.expiresIn}`,
           }
         );
-        response.status(200).send({ token: token });
+        return response.status(200).send({ token: token });
       })
       .catch((error) => {
-        response.status(400).send({msg:"Email ou mot de passe incorrect!"});
+        return response.status(400).send({msg:"Email ou mot de passe incorrect!"});
       });
   } catch (error) {
-    response.status(400).send({msg: "Erreur lors de l'authentication!"});
+    return response.status(400).send({msg: "Erreur lors de l'authentication!"});
   }
 }

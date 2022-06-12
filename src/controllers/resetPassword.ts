@@ -18,16 +18,16 @@ export default async function resetPassword(req: Request, res: Response) {
             .doc(userRecord.uid)
             .update({ password: newPassword, lastModified: getDate() })
             .then((user) => {
-              res
+              return res
                 .status(200)
                 .send({ msg: "Mot de passe modifié avec succès!" });
             })
             .catch((err) => {
-              res.status(400).send({ msg: "Une erreur est survenue!" });
+              return res.status(400).send({ msg: "Une erreur est survenue!" });
             });
         })
         .catch((err) => {
-          res.status(400).send({ msg: "Une erreur est survenue!" });
+          return res.status(400).send({ msg: "Une erreur est survenue!" });
         });
     });
 }

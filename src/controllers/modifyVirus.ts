@@ -49,7 +49,7 @@ export default async function modifyVirus(req: Request, res: Response) {
         return res.status(200).send({ msg: "Virus modifié!" });
       })
       .catch(() => {
-        res.status(400).send({ msg: "Une erreur est survenue" });
+        return res.status(400).send({ msg: "Une erreur est survenue" });
       });
   } catch (error: any) {
     return res.status(400).send({ msg: "Une erreur est survenue!" });

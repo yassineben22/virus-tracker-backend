@@ -19,15 +19,15 @@ export default async function getVirus(req: Request, res: Response) {
             });
 
         } else {
-            res.status(400).send({msg: "Virus introuvable!"});
+            return res.status(400).send({msg: "Virus introuvable!"});
         }
     }
     ).catch((err:any) => {
         if(err.code === "not-found") {
-            res.status(400).send({msg: "Virus introuvable!"});
+            return res.status(400).send({msg: "Virus introuvable!"});
         }
         else {
-            res.status(400).send({msg: "Une erreur est survenue"});
+            return res.status(400).send({msg: "Une erreur est survenue"});
         }
     });
 }

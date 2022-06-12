@@ -11,30 +11,29 @@ export default async function getExposition(req: Request, res: Response) {
                     if (contact.exists) {
                         await admin.firestore().collection("users").doc(user.data().expositionUid).get().then((user2:any) => {
                             if (user2.exists) {
-                                res.status(200).send({
+                                return res.status(200).send({
                                     nom: user2.data().fullName,
                                     ...contact.data()
                                 })
                             } else {
                                 
-                                res.status(400).send({ msg: "Utilisateur non trouvé!" });
+                                return res.status(400).send({ msg: "Utilisateur non trouvé!" });
                             }
                         }).catch(() => {
-                            res.status(400).send({ msg: "Erreur inconnue!" });
+                            return res.status(400).send({ msg: "Erreur inconnue!" });
                         })
                     }
                     else {
-                        console.log(contact.exists)
-                        res.status(400).send({ msg: "Erreur lors de la récupération de l'exposition!" });
+                        return res.status(400).send({ msg: "Erreur lors de la récupération de l'exposition!" });
                     }
                 }).catch(() => {
-                    res.status(400).send({ msg: "Erreur lors de la récupération des données!" });
+                    return res.status(400).send({ msg: "Erreur lors de la récupération des données!" });
                 });
             } else {
-                res.status(400).send({ msg: "Utilisateur non trouvé!" });
+                return res.status(400).send({ msg: "Utilisateur non trouvé!" });
             }
         }).catch(() => {
-            res.status(400).send({ msg: "Erreur lors de la récupération de l'utilisateur!" });
+            return res.status(400).send({ msg: "Erreur lors de la récupération de l'utilisateur!" });
         });
 
     } catch(error:any){

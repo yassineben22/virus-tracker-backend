@@ -16,10 +16,10 @@ export default async function refreshToken(
           playerId: playerId,
         })
         .then(() => {
-          response.status(200).send({msg: "Token mis à jour avec succes"});
+          return response.status(200).send({msg: "Token mis à jour avec succes"});
         })
         .catch((err) => {
-          response
+          return response
             .status(400)
             .send({ msg: "Erreur est survenue lors de la modification"});
         });

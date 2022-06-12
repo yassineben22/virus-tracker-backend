@@ -55,23 +55,23 @@ export default async function register(req: Request, response: Response) {
           lastModified: getDate(),
         })
         .then(() => {
-          response.status(200).send({
+          return response.status(200).send({
             msg: "Utilisateur crée avec succes",
           });
         })
         .catch((err) => {
-          response
+          return response
             .status(400)
             .send({ msg: "Erreur est survenue lors de la creation" });
         });
     })
     .catch((err) => {
       if(err.code == "auth/email-already-exists"){
-        response
+        return response
         .status(400)
         .send({ msg: "Email existe deja!" });
       }
-      response
+      return response
         .status(400)
         .send({ msg: "Erreur est survenue lors de la creation" });
     });

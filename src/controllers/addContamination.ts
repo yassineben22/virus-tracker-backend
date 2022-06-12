@@ -90,5 +90,5 @@ export default async function addContamination(req: Request, res: Response) {
         } else {
           return res.status(400).send({ msg: "Virus introuvable!" });
         }
-      }).catch(()=>{res.status(400).send({msg: "Une erreur est survenue!"})})
+      }).catch(()=>{return res.status(400).send({msg: "Une erreur est survenue!"})})
 }

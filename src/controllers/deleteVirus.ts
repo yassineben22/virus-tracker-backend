@@ -10,12 +10,12 @@ export default async function deleteVirus(req: Request, response: Response) {
     .doc(req.body.uid)
     .delete()
     .then(() => {
-      response.status(200).send({
+      return response.status(200).send({
         msg: "Virus supprimé avec succes",
       });
     })
     .catch((err) => {
-      response
+      return response
         .status(400)
         .send({ msg: "Erreur est survenue lors de la suppression" });
     });

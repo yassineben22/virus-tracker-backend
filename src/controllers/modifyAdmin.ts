@@ -15,9 +15,9 @@ export default async function modifyAdmin(req: Request, res: Response) {
                 firstName: prenom,
                 lastName: nom,
             }).then(() => {
-                res.status(200).send({ msg: "Admin modifié avec succès!" });
+                return res.status(200).send({ msg: "Admin modifié avec succès!" });
             }).catch(() => {
-                res.status(400).send({ msg: "Erreur lors de la modification de l'admin!" });
+                return res.status(400).send({ msg: "Erreur lors de la modification de l'admin!" });
             })
         }).catch((err) => {
             if(err.code == "auth/email-already-exists"){
@@ -25,10 +25,10 @@ export default async function modifyAdmin(req: Request, res: Response) {
                 .status(400)
                 .send({ msg: "Email existe deja!" });
               }
-            res.status(400).send({ msg: "Erreur lors de la modification de l'utilisateur!" });
+              return res.status(400).send({ msg: "Erreur lors de la modification de l'utilisateur!" });
         })
 
     } catch (error) {
-        res.status(400).send({ msg: "Erreur lors de la modification de l'administrateur" });
+        return res.status(400).send({ msg: "Erreur lors de la modification de l'administrateur" });
     }
 }

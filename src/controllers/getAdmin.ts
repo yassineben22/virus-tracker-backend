@@ -14,5 +14,5 @@ export default async function getAdmin(req: Request, res: Response) {
       uid: user.id,
       ...user.data(),
     });
-  else res.status(400).send({ msg: "Donnes de l'admin introuvables!" });
+  else return res.status(400).send({ msg: "Donnes de l'admin introuvables!" });
 }

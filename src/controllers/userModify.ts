@@ -21,16 +21,16 @@ export default async function modifyUser(
           ...req.body,
         })
         .then(() => {
-          response.status(200).send({ msg: "Utilisateur modifié avec succès" });
+          return response.status(200).send({ msg: "Utilisateur modifié avec succès" });
         })
         .catch((err) => {
-          response
+          return response
             .status(400)
             .send({ msg: "Erreur est survenue lors de la modification" });
         });
     })
     .catch((err) => {
-      response
+      return response
         .status(400)
         .send({ msg: "Erreur est survenue lors de la modification" });
     });

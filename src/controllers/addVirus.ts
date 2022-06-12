@@ -30,7 +30,7 @@ export default async function addVirus(req: Request, response: Response) {
       return response.status(200).send({ msg: "Virus ajouté!" });
     })
     .catch((err) => {
-      response
+      return response
         .status(400)
         .send(err.message);
     });
