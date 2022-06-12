@@ -25,6 +25,12 @@ export default async function addContamination(req: Request, res: Response) {
             .then(async (contacts) => {
               if (contacts.docs.length > 0) {
                 while(idx1<contacts.docs.length){
+                  await admin.firestore().collection("users").doc(contacts.docs[idx1].data().contactUid).update({
+                    exposition: true,
+                    expositionUid: uid,
+                    contactUid: contacts.docs[idx1].id
+                  });
+
                   await admin
                     .firestore()
                     .collection("users")

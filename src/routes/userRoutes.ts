@@ -3,6 +3,7 @@ import addContact from "../controllers/addContact";
 import addContamination from "../controllers/addContamination";
 import checkEmail from "../controllers/checkEmail";
 import deleteUser from "../controllers/deleteUser";
+import getExposition from "../controllers/getExposition";
 import getUser from "../controllers/getUser";
 import getViruses from "../controllers/getViruses";
 import refreshToken from "../controllers/refreshToken";
@@ -52,9 +53,13 @@ router.get(
   }
 );
 
+router.get("/getExposition", (req: Request, res: Response) => {
+  getExposition(req, res);
+});
+
 router.post(
   "/addContamination",
-  (req: Request, res: Response, next: NextFunction) => {
+  (req: Request, res: Response) => {
     addContamination(req, res);
   }
 );

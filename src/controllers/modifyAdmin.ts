@@ -10,7 +10,6 @@ export default async function modifyAdmin(req: Request, res: Response) {
         await admin.auth().updateUser(uid, {
             email: email,
         }).then(async (userRecord) => {
-
             await admin.firestore().collection("admins").doc(userRecord.uid).update({
                 email: email,
                 firstName: prenom,
@@ -20,7 +19,7 @@ export default async function modifyAdmin(req: Request, res: Response) {
             }).catch(() => {
                 res.status(400).send({ msg: "Erreur lors de la modification de l'admin!" });
             })
-        }).catch(() => {
+        }).catch((err) => {
             res.status(400).send({ msg: "Erreur lors de la modification de l'utilisateur!" });
         })
 
