@@ -12,9 +12,9 @@ export default async function modifyVirus(req: Request, res: Response) {
       .doc(virus.uid)
       .collection("symptomes")
       .get()
-      .then(async (symptomes) => {
+      .then(async (symptomes:any) => {
         let idx = 0;
-        while (idx < virus.symptomes.length) {
+        while (idx < symptomes.docs.length) {
           await admin
             .firestore()
             .collection("viruses")
@@ -49,9 +49,9 @@ export default async function modifyVirus(req: Request, res: Response) {
         return res.status(200).send({ msg: "Virus modifié!" });
       })
       .catch(() => {
-        return res.status(400).send({ msg: "Une erreur est survenue" });
+        return res.status(400).send({ msg: "Une erreur est survenue! modification" });
       });
   } catch (error: any) {
-    return res.status(400).send({ msg: "Une erreur est survenue!" });
+    return res.status(400).send({ msg: error.message });
   }
 }

@@ -22,7 +22,7 @@ export default async function addContact(req: Request, res: Response) {
       .collection("contacts")
       .get()
       .then(async (contacts) => {
-        if (contacts.docs.length >0) {
+        if (contacts.docs.length > 0) {
           contacts.forEach(async (contact) => {
             if(contact.data().contactUid === contactUid) {
               await admin.firestore().collection("users").doc(uid).collection("contacts").doc(contact.id).delete().then(()=>{}).catch(()=>{});
