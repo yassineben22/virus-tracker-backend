@@ -6,7 +6,6 @@ export default async function getExposition(req: Request, res: Response) {
         let uid = req.body.uid;
         await admin.firestore().collection("users").doc(uid).get().then(async (user:any) => {
             if (user.exists) {
-                console.log(user.data().expositionUid, user.data().contactUid)
                 await admin.firestore().collection("users").doc(user.data().expositionUid).collection("contacts").doc(user.data().contactUid).get().then(async (contact:any) => {
                     if (contact.exists) {
                         await admin.firestore().collection("users").doc(user.data().expositionUid).get().then((user2:any) => {

@@ -44,6 +44,8 @@ export default async function getUser(req: Request, res: Response) {
           contacts.push({
             ..._contacts.docs[idx].data(),
             fullName: user.data().fullName,
+            email: user.data().email,
+            cin: user.data().cin,
             'infected': user.data().infected,
           });
           contactsArray.push({

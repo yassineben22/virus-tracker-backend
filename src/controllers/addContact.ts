@@ -41,7 +41,14 @@ export default async function addContact(req: Request, res: Response) {
         latitude: latitude,
         longitude: longitude
       })
-      .then(() => {
+      .then(async (contact:any) => {
+        await admin.firestore().collection("users").doc(contactUid).get().then(async (test:any) => {
+          if (test.data().expositionUid) {
+            await admin.firestore().collection("users").doc(contactUid).update({
+              contactUid: contact.id,
+            }).then(()=>{}).catch(()=>{});
+          }
+        }).catch(()=>{})
         return res.status(200).send({msg: "Contact ajouté avec succes!"});
       })
       .catch((err) => {
